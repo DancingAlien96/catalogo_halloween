@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Máscaras 3D Halloween</title>
+<meta name="description" content="Catálogo de máscaras y accesorios impresos en 3D para Halloween 2026">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Creepster&family=Oswald:wght@500;600&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+/* Layout: cartel de feria de terror. Héroe con glow de calabaza, filtros tipo boletos, rejilla de tarjetas con foto grande y ficha técnica de impresión 3D. Tema único oscuro, por decisión. */
+:root{
+  --bg:#0f0814;          /* noche morada */
+  --surface:#1a1022;     /* tarjeta */
+  --surface-2:#241632;   /* hover / chips */
+  --line:#3a2749;        /* bordes */
+  --fg:#f1e9dc;          /* hueso */
+  --muted:#a897b8;       /* texto secundario lila */
+  --pumpkin:#ff7a1a;     /* acento principal */
+  --pumpkin-deep:#c4500a;
+  --slime:#b6ff3b;       /* acento secundario, mínimo */
+  --blood:#c0162c;
+  --display:'Creepster', 'Impact', 'Arial Black', sans-serif;
+  --head:'Oswald', 'Arial Narrow', Arial, sans-serif;
+  --body:'Nunito Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.55;
+  background-image:
+    radial-gradient(ellipse 70% 45% at 50% -5%, rgba(255,122,26,.22), transparent 60%),
+    radial-gradient(ellipse 40% 30% at 90% 20%, rgba(182,255,59,.06), transparent 60%);
+  background-repeat:no-repeat}
+a{color:inherit}
+.wrap{max-width:1180px;margin-inline:auto;padding-inline:20px;padding-block:0}
+h1,h2,h3{text-wrap:balance;margin:0}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;overflow:hidden;padding-block:56px 36px;text-align:center}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero .inner{position:relative}
+.eyebrow{font-family:var(--head);font-weight:500;letter-spacing:.22em;text-transform:uppercase;font-size:.8rem;color:var(--pumpkin);display:inline-flex;align-items:center;gap:12px}
+.eyebrow::before,.eyebrow::after{content:"";width:34px;height:1px;background:var(--pumpkin);opacity:.6}
+.hero h1{font-family:var(--display);font-weight:400;font-size:clamp(3.2rem,11vw,7.5rem);line-height:.95;margin-top:14px;
+  color:var(--pumpkin);text-shadow:0 0 18px rgba(255,122,26,.55),0 0 60px rgba(255,122,26,.25),0 4px 0 var(--pumpkin-deep);
+  animation:flicker 7s infinite}
+.hero h1 small{display:block;font-size:.42em;color:var(--fg);text-shadow:0 0 24px rgba(241,233,220,.25);letter-spacing:.04em;margin-top:6px}
+@keyframes flicker{0%,93%,100%{opacity:1}94%{opacity:.75}95%{opacity:1}97%{opacity:.6}98%{opacity:1}}
+.hero p{max-width:34em;margin:22px auto 0;color:var(--muted);font-size:1.05rem}
+.hero .stats{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-top:28px;font-family:var(--head);font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.hero .stats b{color:var(--fg);font-size:1.4rem;display:block;font-variant-numeric:tabular-nums;letter-spacing:0}
+
+/* ---------- FILTROS ---------- */
+.filters{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:linear-gradient(var(--bg) 85%,transparent);padding-block:12px 18px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.chip{font-family:var(--head);font-weight:500;letter-spacing:.06em;text-transform:uppercase;font-size:.82rem;
+  background:var(--surface);color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer;transition:all .15s}
+.chip:hover{color:var(--fg);border-color:var(--pumpkin)}
+.chip[aria-pressed="true"]{background:var(--pumpkin);color:#1a0a00;border-color:var(--pumpkin);box-shadow:0 0 16px rgba(255,122,26,.45)}
+.chip:focus-visible,.btn:focus-visible{outline:2px solid var(--slime);outline-offset:2px}
+
+/* ---------- GRID ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:22px;padding-block:8px 48px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-width:0;
+  transition:transform .2s,box-shadow .2s,border-color .2s;position:relative}
+.card:hover{transform:translateY(-4px);border-color:var(--pumpkin-deep);box-shadow:0 18px 40px -18px rgba(255,122,26,.45)}
+.card[hidden]{display:none}
+.card figure{margin:0;aspect-ratio:4/3;max-width:100%;overflow:hidden;background:#000;position:relative}
+.card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.card:hover img{transform:scale(1.04)}
+.badge{position:absolute;top:10px;left:10px;font-family:var(--head);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  background:rgba(15,8,20,.78);backdrop-filter:blur(4px);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:4px 8px}
+.badge.new{background:var(--blood);border-color:transparent;left:auto;right:10px}
+.card .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
+.card .cat{font-family:var(--head);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--pumpkin)}
+.card h3{font-family:var(--head);font-weight:600;font-size:1.35rem;line-height:1.15;letter-spacing:.01em}
+.card h3 span{display:block;font-weight:500;font-size:.85rem;color:var(--muted);letter-spacing:.03em;margin-top:2px}
+.card p{margin:0;color:var(--muted);font-size:.93rem}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;margin-top:4px;padding-top:12px;border-top:1px dashed var(--line);font-size:.82rem}
+.specs div{min-width:0}
+.specs dt{color:var(--muted);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;font-family:var(--head);font-weight:500}
+.specs dd{margin:0;font-weight:600;font-variant-numeric:tabular-nums}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:12px}
+.price{font-family:var(--head);font-weight:600;font-size:1.25rem;color:var(--slime)}
+.price small{display:block;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.btn{font-family:var(--head);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:.8rem;
+  background:var(--pumpkin);color:#1a0a00;border:0;border-radius:8px;padding:10px 14px;cursor:pointer;text-decoration:none;white-space:nowrap;transition:background .15s,box-shadow .15s}
+.btn:hover{background:#ff8f3f;box-shadow:0 0 18px rgba(255,122,26,.5)}
+.credit{font-size:.72rem;color:var(--muted);opacity:.8}
+.empty{text-align:center;color:var(--muted);padding-block:48px;display:none}
+.empty.show{display:block}
+
+/* ---------- INFO ---------- */
+.info{border-top:1px solid var(--line);padding-block:40px}
+.info .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px}
+.info h2{font-family:var(--head);font-weight:600;font-size:1.1rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pumpkin);margin-bottom:10px}
+.info p,.info li{color:var(--muted);font-size:.95rem;margin:0}
+.info ul{margin:0;padding-left:1.1em;display:grid;gap:4px}
+footer{border-top:1px solid var(--line);padding-block:26px;text-align:center;color:var(--muted);font-size:.85rem}
+footer .contact{display:flex;justify-content:center;gap:10px 22px;flex-wrap:wrap;margin-bottom:10px;font-family:var(--head);letter-spacing:.06em;text-transform:uppercase;font-size:.85rem}
+footer .contact span{color:var(--fg)}
+footer .cp{cursor:pointer;background:none;border:1px dashed var(--line);color:var(--fg);border-radius:6px;padding:4px 10px;font:inherit}
+footer .cp:hover{border-color:var(--pumpkin)}
+@media (prefers-reduced-motion:reduce){.hero h1{animation:none}.card,.card img{transition:none}.card:hover{transform:none}}
+@media (max-width:480px){.hero{padding-block:40px 28px}.specs{grid-template-columns:1fr 1fr}.card .body{padding:14px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <canvas id="embers" aria-hidden="true"></canvas>
+  <div class="wrap inner">
+    <span class="eyebrow">Impresión 3D · Edición Halloween 2026</span>
+    <h1>Máscaras<small>que sí dan miedo</small></h1>
+    <p>Doce diseños impresos en 3D, listos para usar en la fiesta, el cosplay o para colgar en la pared. Ligeras, resistentes y con el detalle que una máscara de plástico de tienda no tiene.</p>
+    <div class="stats">
+      <div><b id="st-total">12</b>Diseños</div>
+      <div><b>11</b>Máscaras</div>
+      <div><b>1</b>Accesorio</div>
+      <div><b>PLA</b>Material</div>
+    </div>
+  </div>
+</header>
+
+<nav class="filters" aria-label="Filtrar por categoría">
+  <div class="wrap">
+    <div class="chips" id="chips"></div>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section class="grid" id="grid" aria-live="polite"></section>
+  <p class="empty" id="empty">No hay productos en esta categoría.</p>
+</main>
+
+<section class="info">
+  <div class="wrap cols">
+    <div>
+      <h2>Cómo se hacen</h2>
+      <p>Cada pieza se imprime en PLA capa por capa, con 0.2 mm de altura de capa y paredes dobles. Después se limpia, se lijan los puntos de soporte y, si la pides pintada, se acaba a mano.</p>
+    </div>
+    <div>
+      <h2>Talla y ajuste</h2>
+      <ul>
+        <li>Talla adulto estándar salvo que se indique otra cosa.</li>
+        <li>Se pueden escalar al 90 % o 110 % para cabezas pequeñas o grandes.</li>
+        <li>Incluyen orificios o pestañas para elástico. El elástico va incluido.</li>
+        <li>Para usarlas con lentes avísanos y ampliamos el espacio interior.</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Tiempos y pedidos</h2>
+      <ul>
+        <li>Pedido mínimo con 5 días de anticipación. Las de dos colores o pintadas, 7 días.</li>
+        <li>Elige color de filamento: hueso, negro, blanco, rojo, dorado o el que tengamos en stock.</li>
+        <li>Pide por mensaje con el nombre del diseño y tu talla.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="contact" id="contact"></div>
+    <div>Diseños de la comunidad MakerWorld, impresos y acabados por nosotros. Cada tarjeta acredita a su diseñador.</div>
+  </div>
+</footer>
+
+<script>
+/* ===== EDITA AQUÍ: precios y contacto =====
+   precio: pon un número (ej. 450) o null para mostrar "Consultar".
+   Puedes cambiar textos, categorías y el orden sin tocar el resto. */
+const MONEDA = 'MXN';
+const CONTACTO = { whatsapp: '', instagram: '', ciudad: '' };
+
+const PRODUCTOS = [
+  { id:'3298750', nombre:'Rey Calavera', sub:'King Skull Mask', cat:'Calaveras', nuevo:true, precio:null,
+    desc:'Cráneo coronado con dientes y grietas marcadas. Hay versión usable en dos piezas ensambladas y versión de exhibición para la repisa.',
+    tipo:'Usable · Exhibición', talla:'Adulto', peso:'~610 g', colores:'1 color', creador:'DTM247' },
+  { id:'2411468', nombre:'Art the Clown', sub:'Terrifier', cat:'Terror', nuevo:true, precio:null,
+    desc:'El payaso mudo de Terrifier. Cara completa con la sonrisa estirada y la nariz afilada. Pide la versión pintada con el maquillaje negro y la sangre.',
+    tipo:'Usable', talla:'Adulto', peso:'~200 g', colores:'Blanca o pintada', creador:'Ombra3D' },
+  { id:'1932663', nombre:'El Raptor', sub:'Black Phone Mask', cat:'Terror', nuevo:false, precio:null,
+    desc:'La máscara de diablo sonriente de The Black Phone, con cuernos cortos y la mueca cerrada. Perfecta para pasar desapercibido hasta que es tarde.',
+    tipo:'Usable', talla:'Adulto', peso:'~420 g', colores:'1 color', creador:'Roxas_driver' },
+  { id:'3184602', nombre:'Calavera Clásica', sub:'Skull Mask', cat:'Calaveras', nuevo:false, precio:null,
+    desc:'Cráneo con fisuras y colmillos. Ligera, cómoda y con orificios para elástico. La opción segura si quieres algo que asuste sin complicarte.',
+    tipo:'Usable', talla:'Adulto', peso:'~240 g', colores:'1 color', creador:'BondFire' },
+  { id:'1106546', nombre:'Hornet', sub:'Hollow Knight · Silksong', cat:'Videojuegos', nuevo:false, precio:null,
+    desc:'La máscara de Hornet con sus dos cuernos largos, tomada de las proporciones del juego. Pensada para niños y adolescentes; para adulto la escalamos.',
+    tipo:'Usable', talla:'Niño · Teen', peso:'~730 g', colores:'Blanca', creador:'spencermann' },
+  { id:'2550346', nombre:'Conejo Salvaje', sub:'Savage Bunny Nightmare', cat:'Terror', nuevo:false, precio:null,
+    desc:'Conejo rabioso con pelaje tallado, orejas rotas y boca llena de colmillos. Mucho detalle en cada capa. No es para niños.',
+    tipo:'Usable · Exhibición', talla:'Adulto', peso:'~330 g', colores:'1 color', creador:'100procent' },
+  { id:'2555237', nombre:'Demonio con Cuernos', sub:'Antifaz veneciano', cat:'Fantasía', nuevo:true, precio:null,
+    desc:'Antifaz gótico de media cara con cuernos retorcidos y filigrana barroca. Elegante para baile de máscaras, carnaval o un disfraz de demonio fino.',
+    tipo:'Antifaz', talla:'M adulto', peso:'~90 g', colores:'Negro · Dorado', creador:'Reydio Active' },
+  { id:'738933', nombre:'Baba Yaga', sub:'John Wick', cat:'Cine', nuevo:false, precio:null,
+    desc:'Cara realista de John Wick con barba y cabello esculpidos. Disponible en dos colores impresos a la vez o en un solo color para pintar.',
+    tipo:'Usable', talla:'Adulto', peso:'~460 g · 1 kg bicolor', colores:'1 o 2 colores', creador:'KristenForge' },
+  { id:'1039750', nombre:'Jason Voorhees', sub:'Viernes 13', cat:'Terror', nuevo:false, precio:null,
+    desc:'La máscara de hockey del campamento Crystal Lake, con marcas de golpe y perforaciones. Llévala blanca o con las rayas rojas pintadas.',
+    tipo:'Usable', talla:'Adulto', peso:'~240 g', colores:'Blanca o pintada', creador:'SuddenHT' },
+  { id:'723985', nombre:'Shy Guy', sub:'Super Mario', cat:'Videojuegos', nuevo:false, precio:null,
+    desc:'La carita tímida de Mario Kart. Lleva malla en los ojos para ver sin que te vean y cojín interior flexible para que no lastime. Combínala con una sudadera roja.',
+    tipo:'Usable', talla:'Adulto · Niño', peso:'~260 g', colores:'Blanca', creador:'risenbylayers' },
+  { id:'432989', nombre:'V de Venganza', sub:'Guy Fawkes', cat:'Cine', nuevo:false, precio:null,
+    desc:'La máscara de Guy Fawkes con bigote, perilla y cejas impresos por separado en negro. Fiel al cómic y a la película.',
+    tipo:'Usable', talla:'Adulto', peso:'~170 g', colores:'Blanca + detalles negros', creador:'Eagle_92' },
+  { id:'3252375', nombre:'Pasador Ghostface', sub:'Scream · accesorio', cat:'Accesorios', nuevo:true, precio:null,
+    desc:'Pasador para el cabello con la cara de Ghostface atravesada por un cuchillo. El toque de terror para quien no quiere cubrirse la cara.',
+    tipo:'Accesorio', talla:'Única', peso:'~45 g', colores:'Blanco + rojo', creador:'Retro Revive 3D' },
+];
+
+const CATS = ['Todo','Terror','Calaveras','Cine','Videojuegos','Fantasía','Accesorios'];
+const fmt = n => n==null ? null : new Intl.NumberFormat('es-MX',{style:'currency',currency:MONEDA,maximumFractionDigits:0}).format(n);
+
+const grid = document.getElementById('grid');
+grid.innerHTML = PRODUCTOS.map(p => `
+  <article class="card" data-cat="${p.cat}">
+    <figure>
+      <img src="img/${p.id}.jpg" alt="${p.nombre}, ${p.sub}" loading="lazy" width="900" height="675">
+      <span class="badge">${p.tipo}</span>
+      ${p.nuevo ? '<span class="badge new">Nuevo</span>' : ''}
+    </figure>
+    <div class="body">
+      <span class="cat">${p.cat}</span>
+      <h3>${p.nombre}<span>${p.sub}</span></h3>
+      <p>${p.desc}</p>
+      <dl class="specs">
+        <div><dt>Talla</dt><dd>${p.talla}</dd></div>
+        <div><dt>Peso aprox.</dt><dd>${p.peso}</dd></div>
+        <div><dt>Colores</dt><dd>${p.colores}</dd></div>
+        <div><dt>Diseño</dt><dd class="credit">${p.creador}</dd></div>
+      </dl>
+      <div class="foot">
+        <div class="price"><small>Precio</small>${fmt(p.precio) ?? 'Consultar'}</div>
+        <a class="btn" href="${waLink(p)}" ${CONTACTO.whatsapp ? 'target="_blank" rel="noopener"' : 'data-nowa'}>Pedir</a>
+      </div>
+    </div>
+  </article>`).join('');
+
+function waLink(p){
+  const msg = encodeURIComponent(`Hola, quiero pedir la máscara "${p.nombre}" (${p.sub}) del catálogo de Halloween.`);
+  return CONTACTO.whatsapp ? `https://wa.me/${CONTACTO.whatsapp.replace(/\D/g,'')}?text=${msg}` : '#contacto';
+}
+
+/* Filtros */
+const chips = document.getElementById('chips');
+chips.innerHTML = CATS.map((c,i)=>`<button class="chip" aria-pressed="${i===0}" data-cat="${c}">${c}</button>`).join('');
+chips.addEventListener('click', e => {
+  const b = e.target.closest('.chip'); if(!b) return;
+  chips.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed', x===b));
+  const cat = b.dataset.cat; let n=0;
+  grid.querySelectorAll('.card').forEach(c => { const show = cat==='Todo' || c.dataset.cat===cat; c.hidden=!show; if(show) n++; });
+  document.getElementById('empty').classList.toggle('show', n===0);
+});
+
+/* Contacto en el pie */
+const ct = document.getElementById('contact'); ct.id='contacto';
+const parts = [];
+if (CONTACTO.whatsapp) parts.push(`WhatsApp <button class="cp" data-copy="${CONTACTO.whatsapp}">${CONTACTO.whatsapp}</button>`);
+if (CONTACTO.instagram) parts.push(`Instagram <span>@${CONTACTO.instagram.replace(/^@/,'')}</span>`);
+if (CONTACTO.ciudad) parts.push(`<span>${CONTACTO.ciudad}</span>`);
+ct.innerHTML = parts.length ? parts.join('') : 'Pide el tuyo por mensaje directo con el nombre del diseño y tu talla.';
+ct.addEventListener('click', async e => {
+  const b = e.target.closest('[data-copy]'); if(!b) return;
+  try { await navigator.clipboard.writeText(b.dataset.copy); const t=b.textContent; b.textContent='Copiado'; setTimeout(()=>b.textContent=t,1200); }
+  catch { const r=document.createRange(); r.selectNodeContents(b); const s=getSelection(); s.removeAllRanges(); s.addRange(r); }
+});
+document.querySelectorAll('[data-nowa]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); document.getElementById('contacto').scrollIntoView({behavior:'smooth'}); }));
+
+/* Brasas flotando en el héroe */
+(function(){
+  const cv = document.getElementById('embers'); if(!cv) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const ctx = cv.getContext('2d'); let W,H,P=[];
+  function size(){ W=cv.width=cv.offsetWidth*devicePixelRatio; H=cv.height=cv.offsetHeight*devicePixelRatio; }
+  function mk(){ return {x:Math.random()*W, y:H+Math.random()*H*.3, r:(Math.random()*1.6+.6)*devicePixelRatio, v:(Math.random()*.35+.15)*devicePixelRatio, a:Math.random()*.6+.2, w:Math.random()*2*Math.PI}; }
+  size(); addEventListener('resize', size);
+  for(let i=0;i<46;i++){ const p=mk(); p.y=Math.random()*H; P.push(p); }
+  (function tick(){
+    ctx.clearRect(0,0,W,H);
+    for(const p of P){
+      p.y-=p.v; p.w+=.02; p.x+=Math.sin(p.w)*.3*devicePixelRatio;
+      if(p.y< -10){ Object.assign(p, mk()); }
+      const fade = Math.min(1, p.y/(H*.6));
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle = `rgba(255,${140+Math.floor(60*Math.sin(p.w))},40,${p.a*fade})`; ctx.fill();
+    }
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>
+</body>
+</html>
