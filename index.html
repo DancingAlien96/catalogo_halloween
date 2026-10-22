@@ -90,6 +90,25 @@ h1,h2,h3{text-wrap:balance;margin:0}
 .empty{text-align:center;color:var(--muted);padding-block:48px;display:none}
 .empty.show{display:block}
 
+/* ---------- CARRUSEL ---------- */
+.carousel .slides{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.carousel .slides::-webkit-scrollbar{display:none}
+.carousel .slides img{flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always;user-select:none}
+.card:hover .carousel img{transform:none}
+.carousel .nav{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;border:1px solid var(--line);
+  background:rgba(15,8,20,.72);color:var(--fg);font-size:1.5rem;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0 0 3px;
+  opacity:0;transition:opacity .15s,background .15s}
+.carousel .nav.prev{left:10px}.carousel .nav.next{right:10px}
+.carousel:hover .nav,.carousel:focus-within .nav{opacity:1}
+.carousel .nav:hover{background:var(--pumpkin);color:#1a0a00;border-color:var(--pumpkin)}
+.carousel .nav:focus-visible{outline:2px solid var(--slime);opacity:1}
+.carousel .dots{position:absolute;left:0;right:0;bottom:10px;display:flex;justify-content:center;gap:5px}
+.carousel .dots i{width:6px;height:6px;border-radius:50%;background:rgba(241,233,220,.45);transition:all .2s}
+.carousel .dots i.on{background:var(--pumpkin);width:16px;border-radius:3px;box-shadow:0 0 8px rgba(255,122,26,.7)}
+.carousel .count{position:absolute;top:10px;right:10px;font-family:var(--head);font-size:.72rem;letter-spacing:.08em;
+  background:rgba(15,8,20,.72);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:3px 7px;font-variant-numeric:tabular-nums}
+@media (hover:none){.carousel .nav{opacity:1;width:30px;height:30px}}
+
 /* ---------- INFO ---------- */
 .info{border-top:1px solid var(--line);padding-block:40px}
 .info .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px}
@@ -174,40 +193,40 @@ const MONEDA = 'MXN';
 const CONTACTO = { whatsapp: '', instagram: '', ciudad: '' };
 
 const PRODUCTOS = [
-  { id:'3298750', nombre:'Rey Calavera', sub:'King Skull Mask', cat:'Calaveras', nuevo:true, precio:null,
+  { id:'3298750', fotos:["img/3298750-0.jpg", "img/3298750-1.jpg", "img/3298750-2.jpg", "img/3298750-3.jpg", "img/3298750-4.jpg", "img/3298750-5.jpg", "img/3298750-6.jpg"], nombre:'Rey Calavera', sub:'King Skull Mask', cat:'Calaveras', nuevo:true, precio:null,
     desc:'Cráneo coronado con dientes y grietas marcadas. Hay versión usable en dos piezas ensambladas y versión de exhibición para la repisa.',
     tipo:'Usable · Exhibición', talla:'Adulto', peso:'~610 g', colores:'1 color', creador:'DTM247' },
-  { id:'2411468', nombre:'Art the Clown', sub:'Terrifier', cat:'Terror', nuevo:true, precio:null,
+  { id:'2411468', fotos:["img/2411468-0.jpg", "img/2411468-1.jpg", "img/2411468-2.jpg", "img/2411468-3.jpg", "img/2411468-4.jpg", "img/2411468-5.jpg"], nombre:'Art the Clown', sub:'Terrifier', cat:'Terror', nuevo:true, precio:null,
     desc:'El payaso mudo de Terrifier. Cara completa con la sonrisa estirada y la nariz afilada. Pide la versión pintada con el maquillaje negro y la sangre.',
     tipo:'Usable', talla:'Adulto', peso:'~200 g', colores:'Blanca o pintada', creador:'Ombra3D' },
-  { id:'1932663', nombre:'El Raptor', sub:'Black Phone Mask', cat:'Terror', nuevo:false, precio:null,
+  { id:'1932663', fotos:["img/1932663-0.jpg", "img/1932663-1.jpg", "img/1932663-2.jpg", "img/1932663-3.jpg"], nombre:'El Raptor', sub:'Black Phone Mask', cat:'Terror', nuevo:false, precio:null,
     desc:'La máscara de diablo sonriente de The Black Phone, con cuernos cortos y la mueca cerrada. Perfecta para pasar desapercibido hasta que es tarde.',
     tipo:'Usable', talla:'Adulto', peso:'~420 g', colores:'1 color', creador:'Roxas_driver' },
-  { id:'3184602', nombre:'Calavera Clásica', sub:'Skull Mask', cat:'Calaveras', nuevo:false, precio:null,
+  { id:'3184602', fotos:["img/3184602-0.jpg", "img/3184602-1.jpg", "img/3184602-2.jpg", "img/3184602-3.jpg", "img/3184602-4.jpg", "img/3184602-5.jpg", "img/3184602-6.jpg"], nombre:'Calavera Clásica', sub:'Skull Mask', cat:'Calaveras', nuevo:false, precio:null,
     desc:'Cráneo con fisuras y colmillos. Ligera, cómoda y con orificios para elástico. La opción segura si quieres algo que asuste sin complicarte.',
     tipo:'Usable', talla:'Adulto', peso:'~240 g', colores:'1 color', creador:'BondFire' },
-  { id:'1106546', nombre:'Hornet', sub:'Hollow Knight · Silksong', cat:'Videojuegos', nuevo:false, precio:null,
+  { id:'1106546', fotos:["img/1106546-0.jpg", "img/1106546-1.jpg", "img/1106546-2.jpg", "img/1106546-3.jpg", "img/1106546-4.jpg", "img/1106546-6.jpg"], nombre:'Hornet', sub:'Hollow Knight · Silksong', cat:'Videojuegos', nuevo:false, precio:null,
     desc:'La máscara de Hornet con sus dos cuernos largos, tomada de las proporciones del juego. Pensada para niños y adolescentes; para adulto la escalamos.',
     tipo:'Usable', talla:'Niño · Teen', peso:'~730 g', colores:'Blanca', creador:'spencermann' },
-  { id:'2550346', nombre:'Conejo Salvaje', sub:'Savage Bunny Nightmare', cat:'Terror', nuevo:false, precio:null,
+  { id:'2550346', fotos:["img/2550346-0.jpg", "img/2550346-1.jpg", "img/2550346-2.jpg", "img/2550346-3.jpg", "img/2550346-4.jpg", "img/2550346-5.jpg", "img/2550346-6.jpg"], nombre:'Conejo Salvaje', sub:'Savage Bunny Nightmare', cat:'Terror', nuevo:false, precio:null,
     desc:'Conejo rabioso con pelaje tallado, orejas rotas y boca llena de colmillos. Mucho detalle en cada capa. No es para niños.',
     tipo:'Usable · Exhibición', talla:'Adulto', peso:'~330 g', colores:'1 color', creador:'100procent' },
-  { id:'2555237', nombre:'Demonio con Cuernos', sub:'Antifaz veneciano', cat:'Fantasía', nuevo:true, precio:null,
+  { id:'2555237', fotos:["img/2555237-0.jpg", "img/2555237-1.jpg", "img/2555237-2.jpg", "img/2555237-3.jpg", "img/2555237-4.jpg", "img/2555237-5.jpg"], nombre:'Demonio con Cuernos', sub:'Antifaz veneciano', cat:'Fantasía', nuevo:true, precio:null,
     desc:'Antifaz gótico de media cara con cuernos retorcidos y filigrana barroca. Elegante para baile de máscaras, carnaval o un disfraz de demonio fino.',
     tipo:'Antifaz', talla:'M adulto', peso:'~90 g', colores:'Negro · Dorado', creador:'Reydio Active' },
-  { id:'738933', nombre:'Baba Yaga', sub:'John Wick', cat:'Cine', nuevo:false, precio:null,
+  { id:'738933', fotos:["img/738933-0.jpg", "img/738933-1.jpg", "img/738933-2.jpg", "img/738933-3.jpg", "img/738933-4.jpg", "img/738933-5.jpg", "img/738933-6.jpg"], nombre:'Baba Yaga', sub:'John Wick', cat:'Cine', nuevo:false, precio:null,
     desc:'Cara realista de John Wick con barba y cabello esculpidos. Disponible en dos colores impresos a la vez o en un solo color para pintar.',
     tipo:'Usable', talla:'Adulto', peso:'~460 g · 1 kg bicolor', colores:'1 o 2 colores', creador:'KristenForge' },
-  { id:'1039750', nombre:'Jason Voorhees', sub:'Viernes 13', cat:'Terror', nuevo:false, precio:null,
+  { id:'1039750', fotos:["img/1039750-0.jpg", "img/1039750-1.jpg", "img/1039750-2.jpg"], nombre:'Jason Voorhees', sub:'Viernes 13', cat:'Terror', nuevo:false, precio:null,
     desc:'La máscara de hockey del campamento Crystal Lake, con marcas de golpe y perforaciones. Llévala blanca o con las rayas rojas pintadas.',
     tipo:'Usable', talla:'Adulto', peso:'~240 g', colores:'Blanca o pintada', creador:'SuddenHT' },
-  { id:'723985', nombre:'Shy Guy', sub:'Super Mario', cat:'Videojuegos', nuevo:false, precio:null,
+  { id:'723985', fotos:["img/723985-0.jpg", "img/723985-1.jpg", "img/723985-2.jpg", "img/723985-3.jpg", "img/723985-4.jpg", "img/723985-6.jpg"], nombre:'Shy Guy', sub:'Super Mario', cat:'Videojuegos', nuevo:false, precio:null,
     desc:'La carita tímida de Mario Kart. Lleva malla en los ojos para ver sin que te vean y cojín interior flexible para que no lastime. Combínala con una sudadera roja.',
     tipo:'Usable', talla:'Adulto · Niño', peso:'~260 g', colores:'Blanca', creador:'risenbylayers' },
-  { id:'432989', nombre:'V de Venganza', sub:'Guy Fawkes', cat:'Cine', nuevo:false, precio:null,
+  { id:'432989', fotos:["img/432989-0.jpg", "img/432989-1.jpg", "img/432989-3.jpg", "img/432989-4.jpg"], nombre:'V de Venganza', sub:'Guy Fawkes', cat:'Cine', nuevo:false, precio:null,
     desc:'La máscara de Guy Fawkes con bigote, perilla y cejas impresos por separado en negro. Fiel al cómic y a la película.',
     tipo:'Usable', talla:'Adulto', peso:'~170 g', colores:'Blanca + detalles negros', creador:'Eagle_92' },
-  { id:'3252375', nombre:'Pasador Ghostface', sub:'Scream · accesorio', cat:'Accesorios', nuevo:true, precio:null,
+  { id:'3252375', fotos:["img/3252375-0.jpg", "img/3252375-1.jpg", "img/3252375-2.jpg", "img/3252375-3.jpg", "img/3252375-4.jpg"], nombre:'Pasador Ghostface', sub:'Scream · accesorio', cat:'Accesorios', nuevo:true, precio:null,
     desc:'Pasador para el cabello con la cara de Ghostface atravesada por un cuchillo. El toque de terror para quien no quiere cubrirse la cara.',
     tipo:'Accesorio', talla:'Única', peso:'~45 g', colores:'Blanco + rojo', creador:'Retro Revive 3D' },
 ];
@@ -218,8 +237,15 @@ const fmt = n => n==null ? null : new Intl.NumberFormat('es-MX',{style:'currency
 const grid = document.getElementById('grid');
 grid.innerHTML = PRODUCTOS.map(p => `
   <article class="card" data-cat="${p.cat}">
-    <figure>
-      <img src="img/${p.id}.jpg" alt="${p.nombre}, ${p.sub}" loading="lazy" width="900" height="675">
+    <figure class="carousel" data-n="${p.fotos.length}">
+      <div class="slides" tabindex="0" aria-label="Fotos de ${p.nombre}">
+        ${p.fotos.map((f,i)=>`<img src="${f}" alt="${p.nombre}, foto ${i+1} de ${p.fotos.length}" loading="${i===0?'eager':'lazy'}" width="900" height="675" draggable="false">`).join('')}
+      </div>
+      ${p.fotos.length>1 ? `
+      <button class="nav prev" type="button" aria-label="Foto anterior">&#8249;</button>
+      <button class="nav next" type="button" aria-label="Foto siguiente">&#8250;</button>
+      <div class="dots" aria-hidden="true">${p.fotos.map((_,i)=>`<i class="${i===0?'on':''}"></i>`).join('')}</div>
+      <span class="count">1/${p.fotos.length}</span>` : ''}
     </figure>
     <div class="body">
       <span class="cat">${p.cat} · ${p.tipo}</span>
@@ -236,6 +262,18 @@ grid.innerHTML = PRODUCTOS.map(p => `
       </div>
     </div>
   </article>`).join('');
+
+/* Carrusel: flechas, puntos y swipe nativo con scroll-snap */
+grid.querySelectorAll('.carousel').forEach(car => {
+  const sl = car.querySelector('.slides'), imgs = [...sl.children], dots = [...car.querySelectorAll('.dots i')], count = car.querySelector('.count');
+  if (imgs.length < 2) return;
+  const idx = () => Math.round(sl.scrollLeft / sl.clientWidth);
+  const go = i => { i = (i + imgs.length) % imgs.length; sl.scrollTo({left: i * sl.clientWidth, behavior: 'smooth'}); };
+  car.querySelector('.prev').addEventListener('click', () => go(idx() - 1));
+  car.querySelector('.next').addEventListener('click', () => go(idx() + 1));
+  sl.addEventListener('scroll', () => { const i = idx(); dots.forEach((d,k)=>d.classList.toggle('on', k===i)); if (count) count.textContent = `${i+1}/${imgs.length}`; }, {passive:true});
+  sl.addEventListener('keydown', e => { if (e.key==='ArrowRight'){e.preventDefault();go(idx()+1);} if (e.key==='ArrowLeft'){e.preventDefault();go(idx()-1);} });
+});
 
 /* Filtros */
 const chips = document.getElementById('chips');
