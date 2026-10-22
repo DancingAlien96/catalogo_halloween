@@ -220,11 +220,9 @@ grid.innerHTML = PRODUCTOS.map(p => `
   <article class="card" data-cat="${p.cat}">
     <figure>
       <img src="img/${p.id}.jpg" alt="${p.nombre}, ${p.sub}" loading="lazy" width="900" height="675">
-      <span class="badge">${p.tipo}</span>
-      ${p.nuevo ? '<span class="badge new">Nuevo</span>' : ''}
     </figure>
     <div class="body">
-      <span class="cat">${p.cat}</span>
+      <span class="cat">${p.cat} · ${p.tipo}</span>
       <h3>${p.nombre}<span>${p.sub}</span></h3>
       <p>${p.desc}</p>
       <dl class="specs">
@@ -235,15 +233,9 @@ grid.innerHTML = PRODUCTOS.map(p => `
       </dl>
       <div class="foot">
         <div class="price"><small>Precio</small>${fmt(p.precio) ?? 'Consultar'}</div>
-        <a class="btn" href="${waLink(p)}" ${CONTACTO.whatsapp ? 'target="_blank" rel="noopener"' : 'data-nowa'}>Pedir</a>
       </div>
     </div>
   </article>`).join('');
-
-function waLink(p){
-  const msg = encodeURIComponent(`Hola, quiero pedir la máscara "${p.nombre}" (${p.sub}) del catálogo de Halloween.`);
-  return CONTACTO.whatsapp ? `https://wa.me/${CONTACTO.whatsapp.replace(/\D/g,'')}?text=${msg}` : '#contacto';
-}
 
 /* Filtros */
 const chips = document.getElementById('chips');
@@ -268,7 +260,6 @@ ct.addEventListener('click', async e => {
   try { await navigator.clipboard.writeText(b.dataset.copy); const t=b.textContent; b.textContent='Copiado'; setTimeout(()=>b.textContent=t,1200); }
   catch { const r=document.createRange(); r.selectNodeContents(b); const s=getSelection(); s.removeAllRanges(); s.addRange(r); }
 });
-document.querySelectorAll('[data-nowa]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); document.getElementById('contacto').scrollIntoView({behavior:'smooth'}); }));
 
 /* Brasas flotando en el héroe */
 (function(){
