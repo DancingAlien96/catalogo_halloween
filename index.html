@@ -131,10 +131,11 @@ footer .cp:hover{border-color:var(--pumpkin)}
   <div class="wrap inner">
     <span class="eyebrow">Impresión 3D · Edición Halloween</span>
     <h1>Máscaras<small>que sí dan miedo</small></h1>
-    <p>Trece diseños impresos en 3D, listos para usar en la fiesta, el cosplay o para colgar en la pared. Ligeras, resistentes y con el detalle que una máscara de plástico de tienda no tiene.</p>
+    <p>Dieciséis diseños impresos en 3D, listos para la fiesta, el cosplay, la pared o hasta tu mascota. Ligeras, resistentes y con el detalle que una máscara de plástico de tienda no tiene.</p>
     <div class="stats">
-      <div><b id="st-total">13</b>Diseños</div>
+      <div><b id="st-total">16</b>Diseños</div>
       <div><b>12</b>Máscaras</div>
+      <div><b>3</b>Mascotas</div>
       <div><b>1</b>Accesorio</div>
       <div><b>PLA</b>Material</div>
     </div>
@@ -212,12 +213,21 @@ const PRODUCTOS = [
   { id:'432989', fotos:["img/432989-0.jpg", "img/432989-1.jpg", "img/432989-3.jpg", "img/432989-4.jpg"], nombre:'V de Venganza', sub:'Guy Fawkes', cat:'Cine', nuevo:false, precio:null,
     desc:'La máscara de Guy Fawkes con bigote, perilla y cejas impresos por separado en negro. Fiel al cómic y a la película.',
     tipo:'Usable', talla:'Adulto', peso:'~170 g', colores:'Blanca + detalles negros', creador:'Eagle_92' },
+  { id:'1598095', fotos:["img/1598095-0.jpg", "img/1598095-1.jpg", "img/1598095-3.jpg", "img/1598095-5.jpg"], nombre:'Batman Perruno', sub:'Para razas de nariz corta', cat:'Mascotas', nuevo:true, precio:null,
+    desc:'Antifaz de Batman hecho a la medida de pugs, bulldogs franceses y boston terriers. Se ajusta sobre el hocico y la frente sin tapar los ojos.',
+    tipo:'Perro', talla:'Única', peso:'~80 g', colores:'Negro', creador:'StevieWander' },
+  { id:'2571005', fotos:["img/2571005-0.jpg", "img/2571005-1.jpg", "img/2571005-2.jpg", "img/2571005-3.jpg"], nombre:'Casco de Obra', sub:'Para gato', cat:'Mascotas', nuevo:true, precio:null,
+    desc:'Casco de construcción en miniatura para el gato de la casa. Ligero y con espacio para las orejas.',
+    tipo:'Gato', talla:'Única', peso:'~60 g', colores:'Amarillo', creador:'umberto' },
+  { id:'2690830', fotos:["img/2690830-0.jpg", "img/2690830-1.jpg", "img/2690830-2.jpg", "img/2690830-3.jpg", "img/2690830-4.jpg", "img/2690830-5.jpg"], nombre:'Maléfica Gatuna', sub:'Casco con cuernos para gato', cat:'Mascotas', nuevo:true, precio:null,
+    desc:'Casco estilo Maléfica con cuernos retorcidos, pensado para gato mediano. Deja libres ojos y orejas.',
+    tipo:'Gato', talla:'Única', peso:'~100 g', colores:'Negro', creador:'arlovski' },
   { id:'3252375', fotos:["img/3252375-0.jpg", "img/3252375-1.jpg", "img/3252375-2.jpg", "img/3252375-3.jpg", "img/3252375-4.jpg"], nombre:'Pasador Ghostface', sub:'Scream · accesorio', cat:'Accesorios', nuevo:true, precio:null,
     desc:'Pasador para el cabello con la cara de Ghostface atravesada por un cuchillo. El toque de terror para quien no quiere cubrirse la cara.',
     tipo:'Accesorio', talla:'Única', peso:'~45 g', colores:'Blanco + rojo', creador:'Retro Revive 3D' },
 ];
 
-const CATS = ['Todo','Terror','Calaveras','Cine','Videojuegos','Fantasía','Accesorios'];
+const CATS = ['Todo','Terror','Calaveras','Cine','Videojuegos','Fantasía','Mascotas','Accesorios'];
 const fmt = n => n==null ? null : new Intl.NumberFormat('es-MX',{style:'currency',currency:MONEDA,maximumFractionDigits:0}).format(n);
 
 const grid = document.getElementById('grid');
